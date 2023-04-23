@@ -101,6 +101,8 @@ package main
 			4. 显示依赖关系 ==> Go list -m all
 			5. 显示详细的依赖关系 ==> Go list -m -json all
 			6. 下载依赖 ==> Go mod download [path@version]
+			7. 更新所有依赖包 ==> go get -u && go mod tidy
+			8. 更新所有包依赖, 包括测试依赖 ==> go get -u all
 */
 
 func main() {
