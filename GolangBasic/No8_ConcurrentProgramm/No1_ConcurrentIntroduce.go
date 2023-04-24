@@ -20,8 +20,9 @@ package No8_ConcurrentProgramm
             Go语言中使用goroutine, 只需要在调用函数时在函数名前加上"go"关键字, 即可为函数创建一个goroutine(子协程)
 			格式: go funcName(参数列表)
 		注意:
-            一旦主协程结束, 子协程也会被强制结束, 往往一般主协程是比较快的, 如果不做特殊处理, 在子协程来不及执行时, 主协程就已经
+            1. 一旦主协程结束, 子协程也会被强制结束, 往往一般主协程是比较快的, 如果不做特殊处理, 在子协程来不及执行时, 主协程就已经
             执行完毕！！
+			2. 通过 "go" 关键字执行的函数是没有返回值的, 如果定义函数有返回值, 则返回值会被丢弃
 	sync.WaitGroup ==> 用于等待一组线程的结束, 可用于解决主线程与子线程同步问题
 		func (wg *WaitGroup) Add(delta int): Add方法向内部计数加上delta, delta可以是负数
 		func (wg *WaitGroup) Done(): 每次调用将 WaitGroup 计数器的值减一
