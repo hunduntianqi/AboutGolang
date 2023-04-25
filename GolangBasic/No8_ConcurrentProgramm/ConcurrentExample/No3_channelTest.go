@@ -53,10 +53,10 @@ func chanBuffer() {
 }
 
 // 定义单向管道只可以存入数据
-func receiveSignChan() {
-	var ch chan<- int
+func receiveSignChan(ch chan<- int) {
 	for i := 0; i < 10; i++ {
 		ch <- i
+		fmt.Println("管道中存入数据: ", i)
 	}
 	close(ch)
 }
@@ -64,11 +64,17 @@ func receiveSignChan() {
 // 定义函数, 参数为仅可以取出数据的单向管道
 func sendSignChan(chSend <-chan int) {
 	// 便利管道
-	for chValue := range chSend {
-		fmt.Println(chValue)
+	for i := 0; i < 10; i++ {
+		fmt.Println("从管道中读取到数据: ", <-chSend)
 	}
 }
 func main() {
 	chanSend()
 	chanBuffer()
+	// 定义一个管道
+	var ch chan int = make(chan int, 10)
+	// 调用函数, 当做仅能发送数据管道传入参数, 向管道中写入数据
+	receiveSignChan(ch)
+	// 调用函数, 当做仅能接收数据管道传入参数, 从管道中读取数据
+	sendSignChan(ch)
 }
