@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"net"
 	"sync"
@@ -20,7 +21,7 @@ func main() {
 		fmt.Println("监听对象创建失败 ==> ", errListen)
 		return
 	}
-
+	fmt.Println("服务端程序启动~~~")
 	for {
 		// 监听客户端连接, 获取客户端连接对象
 		clientConn, errClient := listen.Accept()
@@ -45,10 +46,33 @@ func main() {
 				} else {
 					fmt.Println(string(clientData[:num]))
 				}
+				// 包装数据
+				data := "HTTP/1.1 200 OK\r\n" +
+					"server:1.0\r\n" +
+					"\r\n" +
+					"你好, Web的世界欢迎你!!"
+				// 将字符串编码转换为GBK格式
+				data, _ = simplifiedchinese.GBK.NewEncoder().String(data)
+				// 向客户端回复数据
+				_, errReply := conn.Write([]byte(data))
+				if errReply != nil {
+					fmt.Println("回复客户端数据发送失败 ==> ", errReply)
+					return
+				}
+				// 处理完毕, 关闭连接
+				errClose := conn.Close()
+				if errClose != nil {
+					fmt.Println("客户端连接关闭异常 ==> ", errClose)
+					return
+				}
 			}
 
 		}(clientConn)
 		// 阻塞主协程
 		waitGoroutine.Wait()
+		//if runtime.NumGoroutine() == 1 {
+		//	fmt.Println("程序结束!")
+		//	return
+		//}
 	}
 }
