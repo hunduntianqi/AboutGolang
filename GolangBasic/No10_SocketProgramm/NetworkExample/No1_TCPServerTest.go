@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"net"
 	"sync"
@@ -44,27 +43,23 @@ func main() {
 					fmt.Println("客户端数据读取完毕")
 					break
 				} else {
-					fmt.Println(string(clientData[:num]))
+					fmt.Println(conn.RemoteAddr().String(), ": ", string(clientData[:num]))
 				}
-				// 包装数据
-				data := "HTTP/1.1 200 OK\r\n" +
-					"server:1.0\r\n" +
-					"\r\n" +
-					"你好, Web的世界欢迎你!!"
-				// 将字符串编码转换为GBK格式
-				data, _ = simplifiedchinese.GBK.NewEncoder().String(data)
+
 				// 向客户端回复数据
-				_, errReply := conn.Write([]byte(data))
+				_, errReply := conn.Write([]byte("已收到数据, 目前连接正常!!"))
 				if errReply != nil {
 					fmt.Println("回复客户端数据发送失败 ==> ", errReply)
 					return
 				}
 				// 处理完毕, 关闭连接
-				errClose := conn.Close()
-				if errClose != nil {
-					fmt.Println("客户端连接关闭异常 ==> ", errClose)
-					return
-				}
+				defer func() {
+					errClose := conn.Close()
+					if errClose != nil {
+						fmt.Println("客户端连接关闭异常 ==> ", errClose)
+						return
+					}
+				}()
 			}
 
 		}(clientConn)

@@ -27,4 +27,15 @@ package No10_SocketProgramm
 						f. conn.Write(b []byte) (n int, err error): 向客户端连接对象发送数据, 返回发送成功数据的字节数和错误描述
 				3. 创建子协程 (goroutine) 处理客户端请求
 					创建函数或匿名函数, 编写客户端请求数据处理代码
+		TCP 客户端:
+			客户端通信流程:
+				1. 与服务端建立连接
+					connClient, err := Dial(network, address string):
+						network ==> 指定通信协议, tcp / udp
+						address ==> 要建立连接的 ip地址与端口, 一般指服务端ip与端口
+				2. 与服务端进行数据传输(通信):
+					向服务端发送数据 ==> connClient.Write(b []byte) (n int, err error)
+					接收服务端回复数据 ==> connClient.Read(b []byte) (n int, err error)
+				3. 关闭连接
+					connClient.Close()
 */
