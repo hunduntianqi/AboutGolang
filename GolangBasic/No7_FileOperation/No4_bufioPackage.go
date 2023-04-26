@@ -39,4 +39,29 @@ package No7_FileOperation
 				6. func (b *Writer) WriteByte(c byte) error: 将字节 'c' 写入文件
 				7. func (b *Writer) WriteRune(r rune) (size int, err error): 将字符 'r' 写入文件, 并返回写入成功字节数和错误说明
 				8. func (b *Writer) Flush() error: 刷新缓冲区, 立刻将缓冲区数据全部写入文件
+		bufio.Scanner类型:
+			提供了方便的读取数据的接口
+			创建Scanner类型对象 ==> scannerName := bufio.NewScanner(io.Reader)
+			设置分割函数, 根据分割函数指定字符分割字符串 ==> func (s *Scanner) Split(split SplitFunc)
+				常用分割函数:
+					1. func ScanLines: 将换行符作为分割标记
+					2. func ScanWords: 将空白字符作为分割标记
+					3. func ScanBytes: 将每个字节作为分割标记
+					4. func ScanRunes: 将utf-8编码的每个Unicode字符作为分割标记
+				注意: scanner.Split(split SplitFunc)必须在scanner.Scan()之前调用
+			获取当前位置的分割标记并移动到下一个分割标记的位置 ==> func (s *Scanner) Scan() bool
+				正常返回true,当到达输入流结尾或者遇到错误时会返回false
+			读取根据分割标记分割开的字节切片数据 ==> func (s *Scanner) Bytes() []byte
+			读取根据分割标记分割开的字符串数据 ==> func (s *Scanner) Text() string
+			Scanner使用步骤:
+				1. 包装文件对象创建Scanner对象
+					scannerName := bufio.NewScanner(io.Reader)
+				2. 调用Split函数, 获取分割字符
+					scannerName.Split(SplitFunc) ==> 该方法直接调用即可, 无返回值
+				3. scannerName.Scan() 结合 for语句读取数据
+					for scannerName.Scan() {
+						4. 调用Text() / Bytes()方法读取数据
+							scannerName.Text() ==> 返回数据字符串形式
+							scannerName.Bytes() ==> 返回数据字节切片形式
+					}
 */
