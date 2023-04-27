@@ -20,7 +20,7 @@ func main() {
 		fmt.Println("监听对象创建失败 ==> ", errListen)
 		return
 	}
-	fmt.Println("服务端程序启动~~~")
+	fmt.Println("TCP服务端程序启动~~~")
 	for {
 		// 监听客户端连接, 获取客户端连接对象
 		clientConn, errClient := listen.Accept()
