@@ -102,6 +102,13 @@ package main
 			5. 显示详细的依赖关系 ==> Go list -m -json all
 			6. 下载依赖 ==> Go mod download [path@version]
 			7. 更新所有包依赖, 包括测试依赖 ==> go get -u all
+		国内常用的Golang代理, 解决下载第三方包过慢:
+			1. goproxy ==> https://goproxy.io/zh/
+			2. 七牛云 ==> https://goproxy.cn
+			3. 阿里云 ==> https://mirrors.aliyun.com/goproxy/
+			设置代理:
+				go env -w GO111MODULE=on
+				go env -w GOPROXY=代理网址,direct
 */
 
 func main() {
