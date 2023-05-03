@@ -5,7 +5,7 @@ package No1_MySql
 		1. go get github.com/go-sql-driver/mysql ==> mysql驱动
 		2. go get github.com/jmoiron/sqlx ==> 基于mysql驱动的封装
 	导包:
-		_ "github.com/go-sql-driver/mysql"  // 这个包在编写代码时不会用到, 但是按照此格式必须导入, 否则会找不到mysql驱动
+		_ "github.com/go-sql-driver/mysql"  // 这个包在编写代码时不会用到, 但是必须按照此格式导入, 否则会找不到mysql驱动
 		"github.com/jmoiron/sqlx"
 	连接MySql:
 		database, err := sqlx.Open("数据库类型", "用户名:密码@tcp(地址:端口)/数据库名")
