@@ -137,6 +137,12 @@ package No11_GolangReflection
 				根据 键 的Value获取对应 值 的Value ==> func (v Value) MapIndex(key Value) Value
 			通过 reflect.Value 调用函数:
 				1. 创建 函数 的 Value对象 ==> reflect.ValueOf(funcName)
-				2. 创建 Value 切片, 用于存储函数参数数据
-				3. 调用函数 ==> funcValue.Call([]Value), 返回值为包含函数 返回值Value 对象的切片
+				2. 创建 Value 切片, 用于存储函数参数数据, 如果是无参函数, 则传入一个空切片即可
+				3. 调用函数 ==> funcValue.Call([]Value), 返回值为包含函数 返回值Value 对象的切片, 也可能是无返回值函数
+			通过 reflect.Value 调用成员方法
+				1. 创建结构体的 Value 对象 ==> reflect.ValueOf(&structName) / reflect.ValueOf(structName)
+				2. 获取结构体的成员方法对象 ==> Method(i int) Value / MethodByName(name string) Value
+				3. 创建 Value 切片, 用于存储成员方法参数数据, 如果是无参方法, 则传入一个空切片即可
+				4. 调用成员方法 ==> methodValue.Call([]Value), 返回值为包含方法返回Value 对象的切片, 也可能是无返回值方法
+				注意: 结构体成员方法要想修改结构体变量的数据, 则该方法接受者必须为指针
 */

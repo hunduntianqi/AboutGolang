@@ -20,16 +20,16 @@ func (user UserMessage) PrintMessage() {
 }
 
 // SetName 结构体绑定方法, 修改name属性信息
-func (user UserMessage) SetName(name string) {
+func (user *UserMessage) SetName(name string) {
 	user.Name = name
 }
 
 // SetAge 结构体绑定方法, 修改age属性信息
-func (user UserMessage) SetAge(age int) {
+func (user *UserMessage) SetAge(age int) {
 	user.Age = age
 }
 
 // SetPhone 结构体绑定方法, 修改phone属性信息
-func (user UserMessage) SetPhone(phone string) {
+func (user *UserMessage) SetPhone(phone string) {
 	user.Phone = phone
 }
