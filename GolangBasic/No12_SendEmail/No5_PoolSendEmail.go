@@ -76,6 +76,6 @@ func main() {
 	fmt.Println("测试提示2")
 	// 邮件发送完毕, 关闭管道
 	close(chanEmail)
-	// 关闭连接池
-	pool.Close()
+	// 关闭连接池, 如果邮件发送失败, 会造成程序阻塞
+	//pool.Close()
 }

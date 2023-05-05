@@ -40,6 +40,7 @@ import (
 			3. 使用连接池发送邮件 ==> pool.Send(emailName, timeout)
 				emailName ==> 要发送的邮件对象
 				timeout ==> 超时时间
+			4. 关闭连接池 ==> pool.Close(); 注意: 如果邮件发送失败, 再关闭连接池会造成程序阻塞
 */
 
 func main() {
