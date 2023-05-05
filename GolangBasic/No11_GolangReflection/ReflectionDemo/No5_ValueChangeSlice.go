@@ -11,8 +11,8 @@ import (
 */
 
 func main() {
-	//basicDataSlice()
-	structSlice()
+	basicDataSlice()
+	//structSlice()
 }
 
 // 定义函数, 测试基本数据类型切片数据修改情况
