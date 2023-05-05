@@ -77,6 +77,7 @@ func structDataMap() {
 	fmt.Println(userMap)
 	// 获取 map中所有 key 的 Value 切片
 	keyValues := structMapValue.Elem().MapKeys()
+	// 循环遍历获取数据信息
 	for _, key := range keyValues {
 		fmt.Println(userMap[key.Interface().(string)])
 	}
