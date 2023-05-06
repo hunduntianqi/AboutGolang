@@ -127,7 +127,8 @@ func timeStringParse() {
 		return
 	}
 	// 定义一个时间字符串
-	timeStr := "2021:02:25 11:45"
+	//timeStr := "2021:02:25 11:45"
+	timeStr := "1998:02:24 06:00"
 	// 解析时间字符串
 	timeParse, errParse := time.ParseInLocation("2006:01:02 15:04", timeStr, zoneName)
 	if errParse != nil {
