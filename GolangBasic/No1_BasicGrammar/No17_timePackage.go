@@ -33,8 +33,24 @@ import (
           After:
               判断某一时间点是否在给定的时间点之后, 是则返回true, 否则返回false
               func (t Time) After(u Time) bool
+		定时器 ==> time.Tick(时间间隔), 可以设置一个定时器, 本质上是一个管道 channel
+			例:
+				定义一个定时器, 时间间隔为 1s ==> ticker := time.Tick(time.Second)
+				for tickName :=range ticker {
+					// 每隔一秒执行的任务代码
+				}
+		时间格式化:
+			使用 time.Time.Format() 方法可进行时间格式化, 将时间字符串转换为想要的形式, Golang的时间格式化
+		模板不是常见的 Y-m-d H:M:S, 而是Go语言的诞生时间:2006年1月2号15点04分
+			格式化模板:
+				24小时制 ==> time.Time.Format("2006-01-02 15:04:05.000 Mon Jan")
+				12小时制 ==> time.Time.Format("2006-01-02 03:04:05.000 PM Mon Jan")
+				年月日在前, 时分秒在后 ==> time.Time.Format("2006/01/02 15:04")
+				时分秒在前, 年月日在后 ==> time.Time.Format("15:04 2006/01/02")
+				只要年月日信息 ==> time.Time.Format("2006/01/02")
 */
 
+// 定义函数, 获取当前时间信息
 func timeTimeObject() {
 	// 获取当前时间对象
 	nowTime := time.Now()
@@ -48,6 +64,7 @@ func timeTimeObject() {
 	fmt.Printf("%v-%d-%d %d:%d:%d\n", year, month, day, hour, min, second)
 }
 
+// 定义函数, 测试和时间戳相关方法
 func timeStamp() {
 	// 获取当前时间
 	now := time.Now()
@@ -62,6 +79,7 @@ func timeStamp() {
 	fmt.Printf("当前时间是: %v\n", timeObject)
 }
 
+// 定义函数, 测试时间操作
 func timeOperator() {
 	// 获取当前时间
 	now := time.Now()
@@ -74,8 +92,27 @@ func timeOperator() {
 	fmt.Println(now.After(time.Unix(1000000000, 0)))
 }
 
+// 定义函数, 测试时间格式化
+func timeFormat() {
+	// 获取当前时间对象
+	timeNow := time.Now()
+	// 24小时制时间格式化
+	fmt.Println(timeNow.Format("2006-01-02 15:04:05.000 Mon Jan"))
+	// 12小时制时间格式化
+	fmt.Println(timeNow.Format("2006-01-02 03:04:05.000 PM Mon Jan"))
+	// 年月日时分秒格式化
+	fmt.Println(timeNow.Format("2006-01-02 15:04:05"))
+	// 时分秒年月日格式化
+	fmt.Println(timeNow.Format("15:04:05 2006-01-02"))
+	// 年月日格式化
+	fmt.Println(timeNow.Format("2006/01/02"))
+	// 时分秒格式化
+	fmt.Println(timeNow.Format("15:04:05"))
+}
+
 func main() {
-	timeTimeObject()
-	timeStamp()
-	timeOperator()
+	//timeTimeObject()
+	//timeStamp()
+	//timeOperator()
+	timeFormat()
 }
