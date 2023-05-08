@@ -5,8 +5,6 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"net/http"
-	"regexp"
-	"strings"
 )
 
 /*
@@ -46,15 +44,5 @@ func main() {
 	dataByteList, _ := io.ReadAll(response.Body)
 	// 转换字节切片为 Utf-8 编码
 	bytesGBKList, _ := simplifiedchinese.GBK.NewDecoder().Bytes(dataByteList)
-	//fmt.Println(string(bytesGBKList))
-	// 使用正则表达式解析数据
-	// 将"\n"换行替换掉
-	html := strings.Replace(string(bytesGBKList), "\n", "", -1)
-	// 创建正则表达式对象, 指定匹配规则
-	reg := regexp.MustCompile(`<li><a href="(.*?)" title=".*?" target="_blank"><span><img src=".*?\.jpg" alt=".*?" /></span><b>.*?</b></a></li>`)
-	// 获取所有符合条件的数据
-	dataList := reg.FindAllStringSubmatch(html, -1)
-	for _, data := range dataList {
-		fmt.Println(data)
-	}
+	fmt.Println(string(bytesGBKList))
 }
