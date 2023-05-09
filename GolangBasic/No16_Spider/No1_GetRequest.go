@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
 	"net/http"
+	"regexp"
+	"strings"
 )
 
 /*
@@ -24,7 +25,7 @@ func main() {
 	// 创建客户端对象
 	client := http.Client{}
 	// 创建请求对象
-	request, errReq := http.NewRequest("GET", "http://pic.netbian.com/tupian/31574.html", nil)
+	request, errReq := http.NewRequest("GET", "https://movie.douban.com/chart", nil)
 	if errReq != nil {
 		fmt.Println("请求对象创建失败 ==> ", errReq)
 		return
@@ -43,6 +44,17 @@ func main() {
 	// 获取响应数据字节切片
 	dataByteList, _ := io.ReadAll(response.Body)
 	// 转换字节切片为 Utf-8 编码
-	bytesGBKList, _ := simplifiedchinese.GBK.NewDecoder().Bytes(dataByteList)
-	fmt.Println(string(bytesGBKList))
+	//bytesGBKList, _ := simplifiedchinese.GBK.NewDecoder().Bytes(dataByteList)
+	// 获取 html 数据
+	html := string(dataByteList)
+	// 去除换行符
+	html = strings.Replace(html, "\n", "", -1)
+	//fmt.Println(html)
+	// 创建正则表达式对象, 解析提取数据
+	reg, _ := regexp.Compile(`<a class="nbg" href="(.*?)".*?title="(.*?)">.*?<img src="(.*?)" width="75" alt=".*?" class=""/>.*?</a>`)
+	// 提取数据
+	data := reg.FindAllStringSubmatch(html, -1)
+	for _, data := range data {
+		fmt.Println(data[1:])
+	}
 }
