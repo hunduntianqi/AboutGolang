@@ -9,7 +9,7 @@ import (
 )
 
 /*
-	使用 http 包发送get请求:
+	使用 http 包发送GET请求:
 		1. 创建客户端对象 ==> client :=&http.Client{}
 		2. 获取一个请求对象 ==> request, err := http.NewRequest("GET", url, nil) ==> 注意: 请求的方法 GET 必须大写
 		3. 设置请求头参数:
